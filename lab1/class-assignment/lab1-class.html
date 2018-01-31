@@ -11782,9 +11782,9 @@ div#notebook {
 <p>The following concepts will be introduced in this lab:</p>
 <ul>
 <li><a href="#vars">Variables and assignment</a></li>
+<li><a href="#string">Strings</a></li>
 <li><a href="#conbo">Conditionals and boolean logic</a></li>
 <li><a href="#indent">Indentation</a></li>
-<li><a href="#string">Strings</a></li>
 <li><a href="#lists">Lists and sets</a></li>
 <li><a href="#slicedice">Indexing, slicing, and dicing</a></li>
 <li><a href="#fun">Functions</a></li>
@@ -11834,14 +11834,14 @@ div#notebook {
 </code></pre>
 <p>Try out some calculations on the cell below. Write the expression you want to evaluate and press <code>Ctrl + Enter</code> to execute. You should see something like this:</p>
 
-<pre><code>In []: 8/2
-Out[]: 4.0
+<pre><code>In [ ]: 8/2
+Out[ ]: 4.0
 
 </code></pre>
 <p>Note: When writing complex expressions, it is often helpful (and/or necessary) to include parentheses. These work exactly as in our regular mathematical notation:</p>
 
-<pre><code>In []: (8+2)/5
-Out[]: 2.0
+<pre><code>In [ ]: (8+2)/5
+Out[ ]: 2.0
 
 </code></pre>
 <p>You can also include spaces between numbers and operators to make the expression more readable.</p>
@@ -11879,11 +11879,11 @@ Out[]: 2.0
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Section-1:-Variables,-assignment-and-strings-">Section 1: Variables, assignment and strings <a name="vars" /><a class="anchor-link" href="#Section-1:-Variables,-assignment-and-strings-">&#182;</a></h3><hr>
 <h4 id="1.1.-Variables-and-assignment">1.1. Variables and assignment<a class="anchor-link" href="#1.1.-Variables-and-assignment">&#182;</a></h4><p><strong>TODO</strong></p>
-<h4 id="1.2.-Strings-and-data-types">1.2. Strings and data types<a class="anchor-link" href="#1.2.-Strings-and-data-types">&#182;</a></h4><p>In the Preparation section we mentioned that you can consider a string as something akin to a piece of text. More accurately, a string (<strong><code>str</code></strong> in Python) is a <em>sequence of characters</em>. It is one of the basic <em>data types</em>, and for obvious reasons, one that we as students of LT are very interested in. Another basic data type would be <strong><code>int</code></strong>, representing integer numbers. You already worked with <code>ints</code> above when you did some math. We will introduce more data types along the way; for now, let's make sure the difference between <code>str</code> and <code>int</code> is clear.</p>
+<h4 id="1.2.-Strings-and-data-types-">1.2. Strings and data types <a name="string" /><a class="anchor-link" href="#1.2.-Strings-and-data-types-">&#182;</a></h4><p>In the Preparation section we mentioned that you can consider a string as something akin to a piece of text. More accurately, a string (<strong><code>str</code></strong> in Python) is a <em>sequence of characters</em>. It is one of the basic <em>data types</em>, and for obvious reasons, one that we as students of LT are very interested in. Another basic data type would be <strong><code>int</code></strong>, representing integer numbers. You already worked with <code>ints</code> above when you did some math. We will introduce more data types along the way; for now, let's make sure the difference between <code>str</code> and <code>int</code> is clear.</p>
 <p>As you saw above, <code>strs</code> are surrounded by double quotation marks (in fact single quotes work too):</p>
 
-<pre><code>Option 1:    city = "Berlin"
-Option 2:    city = 'Berlin'
+<pre><code>Option 1:    in [ ]: city = "Berlin"
+Option 2:    in [ ]: city = 'Berlin'
 
 </code></pre>
 <p><code>ints</code>, however, are written as plain numbers, without quotation marks, or anything else for that matter.</p>
@@ -11891,7 +11891,7 @@ Option 2:    city = 'Berlin'
 <pre><code>year = 2049
 
 </code></pre>
-<p><strong>Ex 1.2.1</strong> Run the cell below and inspect the output. What went wrong? Correct the code and you might figure out the meaning of life (and see why it's important to keep in mind the distinction between <code>strs</code> and <code>ints</code>)</p>
+<p><strong>Ex 1.2.1</strong> Run the cell below and inspect the output. What went wrong? Correct the code and you might figure out the meaning of life (and see why it's important to keep in mind the distinction between <code>strs</code> and <code>ints</code>).</p>
 
 </div>
 </div>
@@ -11901,8 +11901,8 @@ Option 2:    city = 'Berlin'
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">paradise</span> <span class="o">=</span> <span class="s2">&quot;1984&quot;</span>
-<span class="p">(</span><span class="mi">300</span> <span class="o">+</span> <span class="mi">404</span> <span class="o">+</span> <span class="n">paradise</span><span class="p">)</span><span class="o">/</span><span class="mi">64</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">year</span> <span class="o">=</span> <span class="s2">&quot;1984&quot;</span>
+<span class="p">(</span><span class="mi">300</span> <span class="o">+</span> <span class="mi">404</span> <span class="o">+</span> <span class="n">year</span><span class="p">)</span><span class="o">/</span><span class="mi">64</span>
 </pre></div>
 
 </div>

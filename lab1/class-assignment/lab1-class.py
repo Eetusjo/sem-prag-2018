@@ -9,9 +9,9 @@
 # The following concepts will be introduced in this lab:
 # 
 # * [Variables and assignment](#vars)
+# * [Strings](#string)
 # * [Conditionals and boolean logic](#conbo)
 # * [Indentation](#indent)
-# * [Strings](#string)
 # * [Lists and sets](#lists)
 # * [Indexing, slicing, and dicing](#slicedice)
 # * [Functions](#fun)
@@ -39,13 +39,13 @@ print("")
 #     
 # Try out some calculations on the cell below. Write the expression you want to evaluate and press `Ctrl + Enter` to execute. You should see something like this:
 # 
-#     In []: 8/2
-#     Out[]: 4.0
+#     In [ ]: 8/2
+#     Out[ ]: 4.0
 #     
 # Note: When writing complex expressions, it is often helpful (and/or necessary) to include parentheses. These work exactly as in our regular mathematical notation: 
 # 
-#     In []: (8+2)/5
-#     Out[]: 2.0
+#     In [ ]: (8+2)/5
+#     Out[ ]: 2.0
 # 
 # You can also include spaces between numbers and operators to make the expression more readable.
 
@@ -62,25 +62,25 @@ print("")
 # 
 # **TODO**
 # 
-# #### 1.2. Strings and data types
+# #### 1.2. Strings and data types <a name="string"></a>
 # 
 # In the Preparation section we mentioned that you can consider a string as something akin to a piece of text. More accurately, a string (**`str`** in Python) is a *sequence of characters*. It is one of the basic *data types*, and for obvious reasons, one that we as students of LT are very interested in. Another basic data type would be **`int`**, representing integer numbers. You already worked with `ints` above when you did some math. We will introduce more data types along the way; for now, let's make sure the difference between `str` and `int` is clear.
 # 
 # As you saw above, `strs` are surrounded by double quotation marks (in fact single quotes work too):
 # 
-#     Option 1:    city = "Berlin"
-#     Option 2:    city = 'Berlin'
+#     Option 1:    in [ ]: city = "Berlin"
+#     Option 2:    in [ ]: city = 'Berlin'
 #     
 # `ints`, however, are written as plain numbers, without quotation marks, or anything else for that matter. 
 # 
 #     year = 2049
 #     
-# **Ex 1.2.1** Run the cell below and inspect the output. What went wrong? Correct the code and you might figure out the meaning of life (and see why it's important to keep in mind the distinction between `strs` and `ints`)
+# **Ex 1.2.1** Run the cell below and inspect the output. What went wrong? Correct the code and you might figure out the meaning of life (and see why it's important to keep in mind the distinction between `strs` and `ints`).
 
 # In[ ]:
 
-paradise = "1984"
-(300 + 404 + paradise)/64
+year = "1984"
+(300 + 404 + year)/64
 
 
 # Clearly the original addition didn't work out all too well. Though you can't add together a `str` and an `int`, confusingly enough, the "addition" (+) does actually work for two or more `strs`. 
