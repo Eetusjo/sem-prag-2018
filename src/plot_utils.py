@@ -324,7 +324,7 @@ def arrow_from(start_x, start_y, end_x, end_y, c="black", linestyle='solid', onl
             start_x, start_y, 
             end_x, end_y,
             width=0.00002,
-            head_width=0.0002, 
+            head_width=0.001, 
             length_includes_head=True,
             color=c,
             linestyle=linestyle
@@ -334,22 +334,13 @@ def arrow_from(start_x, start_y, end_x, end_y, c="black", linestyle='solid', onl
             start_x, start_y, 
             end_x, end_y,
             width=0.001,
-            head_width=0.01, 
+            head_width=0.02, 
             length_includes_head=True,
             color=c,
             linestyle=linestyle
         )
     return a
 
-
-def find_true_closest(embeddings, mapping, base, minus, plus, n=5):
-    true_final = embeddings[mapping[base]] - embeddings[mapping[minus]] + embeddings[mapping[plus]]
-     
-    distances = cosine_distances(true_final.reshape(1, -1), embeddings).reshape(-1)
-    closest_indices = distances.argsort()[-n:][::-1] 
-     
-    return closest_indices
-  
 
 def plot_w2v_algebra(embeddings, mapping, base, minus=None, plus=None, result=None):
     """Plot vector algebra of the form 'base - minus + plus = ?'"""
@@ -390,8 +381,25 @@ def plot_w2v_algebra(embeddings, mapping, base, minus=None, plus=None, result=No
     # reverse_mapping = {i:w for w, i in mapping.items()}
     # print("True closest words:", [reverse_mapping[i] for i in closest_ind])
 
+    all_x = np.concatenate([[0], comp_1])
+    all_y = np.concatenate([[0], comp_2])
+    
+    if minus:
+        all_x = np.concatenate([all_x, [base_minus_x]])
+        all_y = np.concatenate([all_y, [base_minus_y]])
+        
+    if minus and plus:
+        all_x = np.concatenate([all_x, [final_x]])
+        all_y = np.concatenate([all_y, [final_y]])
+    
     plt.figure()
-    plt.plot([0] + comp_1, [0] + comp_2, marker="o", markersize=2.0, linestyle="None")
+    plt.plot(
+        all_x,
+        all_y, 
+        marker="o", 
+        markersize=2.0, 
+        linestyle="None"
+    )
 
     # origin + base
     arrow_from(0, 0, comp_1[base_i], comp_2[base_i], onlybase=(not (minus or plus)))
@@ -406,7 +414,8 @@ def plot_w2v_algebra(embeddings, mapping, base, minus=None, plus=None, result=No
             comp_2[base_i], 
             -1*comp_1[minus_i], 
             -1*comp_2[minus_i], 
-            "red"
+            "red",
+            onlybase=False
         )
     # (base - minus) + plus
     if minus and plus:
@@ -415,11 +424,12 @@ def plot_w2v_algebra(embeddings, mapping, base, minus=None, plus=None, result=No
             base_minus_y, 
             comp_1[plus_i], 
             comp_2[plus_i], 
-            "blue"
+            "blue",
+            onlybase=False
         )
     # origin to final
     if minus and plus:
-        arr4 = arrow_from(0, 0, final_x, final_y, "orange", linestyle="--")
+        arr4 = arrow_from(0, 0, final_x, final_y, "orange", linestyle="--", onlybase=False)
 
     [plt.text(comp_1[i], comp_2[i], w) for i, w in enumerate(words)]
 
@@ -431,72 +441,11 @@ def plot_w2v_algebra(embeddings, mapping, base, minus=None, plus=None, result=No
         )
 
     plt.show()
-    
-"""
-def plot_w2v_arithmetic(embeddings, mapping, base, minus, plus, result=None):
-    "Plot vector arithmetic of the form 'base - minus + plus = ?'"
-    if result:
-        words = [base, minus, plus, result]
-    else:
-        words = [base, minus, plus]
-    
-    wtoi = {w:i for i, w in enumerate(words)}
-    itow = {i:w for i, w in enumerate(words)}
-    
-    base_i = wtoi[base]
-    minus_i = wtoi[minus]
-    plus_i = wtoi[plus]
-    if result:
-        equals = wtoi[result]
-        
-    word_embs = [embeddings[mapping[w]].reshape(1, -1) for w in words]
-    M = np.concatenate(word_embs)
-    
-    pca = PCA(n_components=2)
-    pca_result = pca.fit_transform(M)
 
-    comp_1 = pca_result[:,0]
-    comp_2 = pca_result[:,1] 
-
-    base_minus_x = comp_1[base_i] - comp_1[minus_i]
-    base_minus_y = comp_2[base_i] - comp_2[minus_i]
-
-    final_x = base_minus_x + comp_1[plus_i]
-    final_y = base_minus_y + comp_2[plus_i]
-
-    plt.figure()
-    plt.plot([0] + comp_1, [0] + comp_2, marker="o", markersize=2.0, linestyle="None")
-
-    # origin + base
-    arr1 = arrow_from(0, 0, comp_1[base_i], comp_2[base_i])
-    arr1 = arrow_from(0, 0, comp_1[minus_i], comp_2[minus_i], "red")
-    arr1 = arrow_from(0, 0, comp_1[plus_i], comp_2[plus_i], "blue")
-    # base - minus
-    arr2 = arrow_from(
-        comp_1[base_i], 
-        comp_2[base_i], 
-        -1*comp_1[minus_i], 
-        -1*comp_2[minus_i], 
-        "red"
-    )
-    # (base - minus) + plus
-    arr3 = arrow_from(
-        base_minus_x, 
-        base_minus_y, 
-        comp_1[plus_i], 
-        comp_2[plus_i], 
-        "blue"
-    )
-    # origin to final
-    arr4 = arrow_from(0, 0, final_x, final_y, "orange", linestyle="--")
-
-    [plt.text(comp_1[i], comp_2[i], w) for i, w in enumerate(words)]
-
-    plt.legend(
-        [arr4],
-        [base + " - " + minus + " + " + plus],
-        ncol=2, fancybox=True
-    )
-
-    plt.show()
-"""
+def find_true_closest(embeddings, mapping, base, minus, plus, n=5):
+    true_final = embeddings[mapping[base]] - embeddings[mapping[minus]] + embeddings[mapping[plus]]
+     
+    distances = cosine_distances(true_final.reshape(1, -1), embeddings).reshape(-1)
+    closest_indices = distances.argsort()[-n:][::-1] 
+     
+    return closest_indices
