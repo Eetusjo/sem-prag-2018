@@ -298,14 +298,22 @@ def embed_sentence(sentence, word_embeddings, mapping):
     and 'mapping' is a {str:int} dict mapping words to row indices
     in 'embeddings'.
     """
-    words = sentence.split()
-    words = [w for w in words if w in mapping]
+    # Get the row indices of the words in the sentence
+    indices = [mapping[w] for w in sentence.split() if w in mapping]
     
-    indices = [mapping[w] for w in words]
+    # You can index a numpy array by giving it a Python list of integers.
+    # word_vectors is now a (|s| x 300) array (matrix), where |s| is the
+    # length of the sentence. (Actually this only holds if all the words
+    # in the sentence have embeddings, so in reality it is probably not
+    # |s|.)
     word_vectors = word_embeddings[indices]
-        
+    
+    # Convenient averaging function, notice the correct axis (which would
+    # probably be correct by default, but anyways..). "np.average" is used
+    # here instead of "np.mean" because "average" could also be weighted.
     sentence_embedding = np.average(word_vectors, axis=0)
     
+    # Reshape from 1d array to (1 x 300) for convenience.
     return sentence_embedding.reshape(1, -1)
 
 
