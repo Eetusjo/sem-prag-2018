@@ -7,7 +7,7 @@ from sklearn.decomposition import PCA
 from sklearn.metrics.pairwise import cosine_distances
 
 
-def plot_3d_binary(features, word_feature_tuples):
+def plot_3d_binary(features, word_feature_tuples, from_zero=False):
     """For plotting words with three binary features."""
     x = [coord[0] for _, coord in word_feature_tuples]
     y = [coord[1] for _, coord in word_feature_tuples]
@@ -16,10 +16,16 @@ def plot_3d_binary(features, word_feature_tuples):
     fig = plt.figure()
     # 3D plot
     ax = fig.add_subplot(111, projection='3d')
-    # Set ticks
-    ax.xaxis.set_ticks(range(-1, 2, 1))
-    ax.yaxis.set_ticks(range(-1, 2, 1))
-    ax.zaxis.set_ticks(range(-1, 2, 1))
+    
+    if from_zero:
+        # Set ticks
+        ax.xaxis.set_ticks(list(map(lambda x: x/10.0, range(0, 15, 5))))
+        ax.yaxis.set_ticks(list(map(lambda x: x/10.0, range(0, 15, 5))))
+        ax.zaxis.set_ticks(list(map(lambda x: x/10.0, range(0, 15, 5))))
+    else:
+        ax.xaxis.set_ticks(range(-1, 2, 1))
+        ax.yaxis.set_ticks(range(-1, 2, 1))
+        ax.zaxis.set_ticks(range(-1, 2, 1))
 
     # Set label names
     ax.set_xlabel(features["x"])
