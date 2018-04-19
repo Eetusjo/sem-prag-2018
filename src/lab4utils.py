@@ -245,3 +245,28 @@ def sample_clusters(model, words, n, clusters):
     for c in clusters:
         print("Cluster %d:" % c)
         print(", ".join(random.sample(cluster_to_words[c], n)), end="\n\n")
+        
+def get_clusters_at_cutoff(model, words, cutoff):
+    children = model.children_[:cutoff + 1]
+    clusters = {i:[w] for i, w in enumerate(words)}
+    
+    tmp = len(words)
+    for c1, c2 in children:
+        if tmp not in clusters:
+            clusters[tmp] = []
+        
+        for c in [c1, c2]:
+            if c < len(words):
+                clusters[tmp].append(words[c])
+            else:
+                clusters[tmp] += clusters[c]
+        
+        clusters[c1] = None
+        clusters[c2] = None
+        
+        tmp +=1
+        
+    clusters = [w for k, w in clusters.items() if w]
+    
+    for i, c in enumerate(clusters):
+        print("Cluster %d: %s" % (i, ", ".join(c)))
